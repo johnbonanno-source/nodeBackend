@@ -34,7 +34,6 @@ app.use((req, res, next) => {
 app.get("/login/", (req, res, next) => {
   const username = req.query.username;
   let userFound = false;
-  console.log(req.body);
   usersTable.forEach((user) => {
     if (user["username"] === username) {
       userFound = true;
