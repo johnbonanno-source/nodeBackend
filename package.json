@@ -9,6 +9,7 @@
     "anymatch": "^3.1.3",
     "array-flatten": "^1.1.1",
     "balanced-match": "^1.0.2",
+    "bcryptjs": "^2.4.3",
     "binary-extensions": "^2.2.0",
     "bl": "^2.2.1",
     "bluebird": "^3.5.1",
@@ -38,7 +39,6 @@
     "finalhandler": "^1.2.0",
     "forwarded": "^0.2.0",
     "fresh": "^0.5.2",
-    "fsevents": "^2.3.2",
     "function-bind": "^1.1.1",
     "get-intrinsic": "^1.2.1",
     "glob-parent": "^5.1.2",
@@ -119,7 +119,6 @@
     "vary": "^1.1.2",
     "yallist": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
