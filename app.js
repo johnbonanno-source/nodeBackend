@@ -1,18 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const UserControllers = require('./UserControllers');
-const uuid = require("uuid/v4");
 const app = express();
-const { connectDatabase } = require("./db"); // Adjust the path as needed
+const cors = require('cors'); 
+const { connectDatabase } = require("./db"); 
 
 
-
+app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/login', UserControllers.getUserByUsername);
+app.get('/getUsers', UserControllers.getAllUsers);
 app.post('/create', UserControllers.createUser);
-
-// app.post('/create_user', UserControllers.createUser);
+app.post('/login', UserControllers.userLogin);
  
 // app.post('/change-balance', UserControllers.changeBalance)
 connectDatabase().then(() => {
