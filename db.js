@@ -1,12 +1,18 @@
 const mongoose = require("mongoose");
 
-mongoose
-  .connect("your-database-url")
-  .then(() => {
+const connectDatabase = async () => {
+  try {
+    await mongoose.connect("mongodb+srv://Budgethero:eatbutt@cluster0.55ykuqg.mongodb.net/Users?retryWrites=true&w=majority", {
+      useNewUrlParser: true, // Add this option
+      useUnifiedTopology: true, // Add this option to use the new server discovery and monitoring engine
+    });
     console.log("Database connection established");
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error("Database connection failed:", error);
-  });
+  }
+};
 
-module.exports = mongoose;
+module.exports = {
+  mongoose,
+  connectDatabase,
+};

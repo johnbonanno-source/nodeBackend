@@ -1,14 +1,6 @@
-const mongoose = require("mongoose");
 const User = require("./models/user");
+const { mongoose } = require("./db"); // Adjust the path as needed
 
-mongoose
-  .connect(
-    "mongodb+srv://Budgethero:eatbutt@cluster0.55ykuqg.mongodb.net/Users?retryWrites=true&w=majority"
-  ).then(() => {
-    console.log("Connection established");
-  }).catch(() => {
-    console.log("Connection failed.");
-  });
 
   const createUser = async (req, res, next) => {
     const user = new User({
