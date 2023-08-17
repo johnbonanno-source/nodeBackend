@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("./models/user");
-const { mongoose } = require("./db"); // Adjust the path as needed
 const crypto = require("crypto");
 
 const generateSecretKey = () => {
