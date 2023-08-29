@@ -31,7 +31,12 @@ const userLogin = async (req, res, next) => {
     const token = jwt.sign({ userId: user._id }, secretKey, {
       expiresIn: "1h",
     });
-    res.json({ token });
+    return res
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({ message: "Login successful" });
   } catch (error) {
     next(error);
   }
