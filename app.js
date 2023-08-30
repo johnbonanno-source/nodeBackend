@@ -1,13 +1,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser"); 
+
 const app = express();
 const cors = require("cors");
 const connectDatabase = require("./db");
 const routes = require("./routes");
 const crypto = require("crypto");
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, 
+};
+
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString("hex");

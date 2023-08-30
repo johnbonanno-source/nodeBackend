@@ -35,7 +35,6 @@ const userLogin = async (req, res, next) => {
 };
 
 const userLogout=(req,res) =>{
-  console.log("LogoutC");
   res.cookie('access_token', 'logout', {
     httpOnly: true,
     expires: new Date(Date.now()),
