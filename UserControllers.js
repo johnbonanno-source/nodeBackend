@@ -23,9 +23,13 @@ const userLogin = async (req, res, next) => {
     const token = jwt.sign({ userId: user._id }, req.secretKey, {
       expiresIn: '1h',
     });
+
+    const hour = 1000 * 60 * 60;
+
     return res
       .cookie('access_token', token, {
         httpOnly: true,
+        expires: new Date(Date.now() + hour),
       })
       .status(200)
       .json({ message: 'Login successful' });
