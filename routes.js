@@ -13,6 +13,6 @@ router.post('/logout', UserControllers.userLogout);
 
 
 router.get('/getExpenses', authenticateUser, ExpensesControllers.getAllExpenses);
-router.get('/createExpense', authenticateUser, ExpensesControllers.createExpense);
+router.post('/createExpense', authenticateUser, ExpensesControllers.createExpense);
 
 module.exports = router;
