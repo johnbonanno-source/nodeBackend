@@ -1,15 +1,12 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
 const createUser = async (req, res) => {
   const user = new User({
     username: req.body.username,
     password: req.body.password,
   });
-  console.log(user);
   const result = await user.save();
-  console.log(typeof user._id);
-  console.log('RESULT' + result);
   res.json(result);
 };
 
@@ -18,38 +15,36 @@ const userLogin = async (req, res, next) => {
   try {
     const user = await User.findOne({ username }).exec();
     if (!user || !(await user.comparePassword(password))) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: "Invalid username or password" });
     }
     const token = jwt.sign({ userId: user._id }, req.secretKey, {
-      expiresIn: '1h',
+      expiresIn: "1h",
     });
 
     const hour = 1000 * 60 * 60;
 
     return res
-      .cookie('access_token', token, {
+      .cookie("access_token", token, {
         httpOnly: true,
         expires: new Date(Date.now() + hour),
       })
       .status(200)
-      .json({ message: 'Login successful' });
+      .json({ message: "Login successful" });
   } catch (error) {
     next(error);
   }
 };
 
-const userLogout=(req,res) =>{
-  res.cookie('access_token', 'logout', {
+const userLogout = (req, res) => {
+  res.cookie("access_token", "logout", {
     httpOnly: true,
     expires: new Date(Date.now()),
   });
-  res.status(200).json({msg: 'Logged out successfully.'});
-}
+  res.status(200).json({ msg: "Logged out successfully." });
+};
 
 const getAllUsers = async (req, res, next) => {
-  console.log('Hit our controller');
   const user = await User.find().exec();
-  console.log(user);
   res.json(user);
 };
 
@@ -57,5 +52,5 @@ module.exports = {
   getAllUsers,
   createUser,
   userLogin,
-  userLogout
+  userLogout,
 };

@@ -3,7 +3,6 @@ const Expense = require("../models/expense");
 const createExpense = async (req, res) => {
   try {
     const { title, cost, date, isReoccuring } = req.body;
-    console.log(title, cost, date, isReoccuring);
     const newExpense = new Expense({
       title,
       cost,

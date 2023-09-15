@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser"); 
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const connectDatabase = require("./db");
 const routes = require("./routes");
@@ -10,7 +10,7 @@ const app = express();
 
 const corsOptions = {
   origin: "http://localhost:3000",
-  credentials: true, 
+  credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -26,9 +26,9 @@ app.use((req, res, next) => {
 });
 
 app.use("/", routes);
-app.get('/test', (req, res) => {
-  console.log('Parsed Cookies:', req.cookies);
-  res.send('Check console for parsed cookies.');
+app.get("/test", (req, res) => {
+  console.log("Parsed Cookies:", req.cookies);
+  res.send("Check console for parsed cookies.");
 });
 
 connectDatabase().then(() => {
