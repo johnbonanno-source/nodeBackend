@@ -48,9 +48,29 @@ const getAllUsers = async (req, res, next) => {
   res.json(user);
 };
 
+
+const getUserIdFromToken = async (req, res, next) => {
+  const token = req.cookies.access_token;
+  if (!token){
+    return res.status(401).json({ message: "Token not found."});
+  }
+  try{
+    const tokenData = jwt.verify(token, req.secretKey);
+    const userId = tokenData._id;
+    console.log(userId);
+    console.log(tokenData);
+    res.json(userId);
+
+  }
+  catch(error){
+    return res.status(401).json({ message: ""})
+  }
+}
+
 module.exports = {
   getAllUsers,
   createUser,
   userLogin,
   userLogout,
+  getUserIdFromToken,
 };

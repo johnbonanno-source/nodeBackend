@@ -12,6 +12,8 @@ router.get('/getUsers', authenticateUser, UserControllers.getAllUsers);
 router.post('/createUser', UserControllers.createUser);
 router.post('/login', UserControllers.userLogin);
 router.post('/logout', UserControllers.userLogout);
+router.get('/getUserId', UserControllers.getUserIdFromToken);
+
 //Expenses Routes
 router.get('/getExpenses', authenticateUser, ExpensesControllers.getAllExpenses);
 router.post('/createExpense', authenticateUser, ExpensesControllers.createExpense);
