@@ -20,7 +20,6 @@ const userLogin = async (req, res, next) => {
     const token = jwt.sign({ userId: user._id }, req.secretKey, {
       expiresIn: "1h",
     });
-
     const hour = 1000 * 60 * 60;
 
     return res
@@ -35,37 +34,45 @@ const userLogin = async (req, res, next) => {
   }
 };
 
-const userLogout = (req, res) => {
-  res.cookie("access_token", "logout", {
-    httpOnly: true,
-    expires: new Date(Date.now()),
-  });
+
+
+const userLogout = (req, res, next) => {
+  const cookies = req.cookies;
+  if (!cookies.access_token) {
+    return res.status(401).json({ message: "Token not found." });
+  }
+  if (cookies.access_token) {
+    console.log("found access_token cookie");
+
+    res.clearCookie("access_token", { httpOnly: true });
+    console.log("Cleared access_token cookie");
+  } else {
+    console.log("cookie not found");
+  }
+
   res.status(200).json({ msg: "Logged out successfully." });
+  console.log(res.cookies);
+  res.end();
 };
 
 const getAllUsers = async (req, res, next) => {
   const user = await User.find().exec();
-  res.json(user);
+  return res.json(user);
 };
 
-
 const getUserIdFromToken = async (req, res, next) => {
-  const token = req.cookies.access_token;
-  if (!token){
-    return res.status(401).json({ message: "Token not found."});
+  const cookies = req.cookies;
+  if (!cookies.access_token) {
+    return res.status(401).json({ message: "Token not found." });
   }
-  try{
+  try {
     const tokenData = jwt.verify(token, req.secretKey);
-    const userId = tokenData._id;
-    console.log(userId);
-    console.log(tokenData);
-    res.json(userId);
-
+    const userId = tokenData.userId;
+    return res.json({ userId: userId });
+  } catch (error) {
+    res.status(401).json({ message: "Unable to fetch user id from token." });
   }
-  catch(error){
-    return res.status(401).json({ message: ""})
-  }
-}
+};
 
 module.exports = {
   getAllUsers,
