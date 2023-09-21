@@ -7,6 +7,11 @@ const expenseSchema = new mongoose.Schema(
     cost: { type: Number, required: true },
     date: { type: Date, required: true },
     isReoccuring: { type: Boolean, required: true },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   { collection: "charges" }
 );
