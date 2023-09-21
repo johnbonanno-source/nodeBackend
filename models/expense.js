@@ -1,5 +1,5 @@
-const { Double } = require("bson");
-const mongoose = require("mongoose");
+const { Double } = require('bson');
+const mongoose = require('mongoose');
 
 const expenseSchema = new mongoose.Schema(
   {
@@ -13,7 +13,7 @@ const expenseSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { collection: "charges" }
+  { collection: 'charges' }
 );
 
-module.exports = mongoose.model("Expense", expenseSchema);
+module.exports = mongoose.model('Expense', expenseSchema);
