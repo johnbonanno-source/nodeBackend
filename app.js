@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const connectDatabase = require('./db');
-const routes = require('./routes');
 const crypto = require('crypto');
+const ExpensesRoutes = require('./Routes/ExpensesRoutes');
+const UsersRoutes = require('./Routes/UserRoutes');
 
 const app = express();
 
@@ -19,17 +20,16 @@ app.use(bodyParser.json());
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString('hex');
 };
+
 const secretKey = generateSecretKey();
+
 app.use((req, res, next) => {
   req.secretKey = secretKey;
   next();
 });
 
-app.use('/', routes);
-app.get('/test', (req, res) => {
-  console.log('Parsed Cookies:', req.cookies);
-  res.send('Check console for parsed cookies.');
-});
+app.use('/users', UsersRoutes);
+app.use('/expenses', ExpensesRoutes);
 
 connectDatabase().then(() => {
   app.listen(2001, () => {
