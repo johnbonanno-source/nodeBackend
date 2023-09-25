@@ -8,5 +8,9 @@ const balanceSchema = new Mongoose.Schema(
             required: true,
           },
         balance: {type: Number, required: true}
-    }
+    },
+    { collection: 'balances' }
+
 )
+
+module.exports = mongoose.model('Balance', expenseSchema);

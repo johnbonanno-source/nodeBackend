@@ -86,10 +86,32 @@ const getUserIdFromToken = async (req, res, next) => {
   }
 };
 
+const validateToken = (req,res,next) => {
+  const token = req.cookies.access_token;
+  if (!token) {
+    res.json({ valid: false, message: 'Token not found' });
+    return;
+  }
+  let tokenData = null;
+  try{
+    tokenData = jwt.decode(token);
+    if (tokenData.exp && Date.now() / 1000 >= tokenData.exp) {
+      res.json({ valid: false, message: 'Token has expired' });
+    }
+    else{
+      res.json({ valid: true, message: 'Token is valid' });
+    }
+  } 
+  catch (error) {
+      console.error('Error decoding token:', error);
+  }
+}
+
 module.exports = {
   getAllUsers,
   createUser,
   userLogin,
   userLogout,
   getUserIdFromToken,
+  validateToken,
 };
