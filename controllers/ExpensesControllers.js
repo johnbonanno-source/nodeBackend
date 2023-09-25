@@ -24,18 +24,19 @@ const createExpense = async (req, res) => {
 
 const getAllExpenses = async (req, res) => {
   try {
-    // get id of current user
-    const userId = req.query.userId;
-    // // filter expenses by userId
-    const query = { userId: new ObjectId(userId) };
-    // // match expenses
+    console.log('get expense');
+    const userId = req.userId;
+    const userIdObjectId = mongoose.Types.ObjectId(userId);
+    const query = { userId: userIdObjectId };
+    console.log(query)
     const expenses = await Expense.find(query).exec();
-
+    console.log(expenses);
     res.json(expenses);
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve expenses' });
   }
 };
+
 
 module.exports = {
   createExpense,
