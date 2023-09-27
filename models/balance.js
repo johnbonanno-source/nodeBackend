@@ -1,6 +1,6 @@
-const { Mongoose } = require("mongoose");
+const mongoose = require('mongoose');
 
-const balanceSchema = new Mongoose.Schema(
+const balanceSchema = new mongoose.Schema(
     {
         userId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -13,4 +13,4 @@ const balanceSchema = new Mongoose.Schema(
 
 )
 
-module.exports = mongoose.model('Balance', expenseSchema);
+module.exports = mongoose.model('Balance', balanceSchema);
