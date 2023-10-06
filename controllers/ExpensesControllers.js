@@ -34,7 +34,6 @@ const getAllExpenses = async (req, res) => {
   }
 };
 
-
 module.exports = {
   createExpense,
   getAllExpenses,
