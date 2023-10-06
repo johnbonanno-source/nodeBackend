@@ -12,8 +12,6 @@ const app = express();
 
 const path = require('path');
 
-// app.use(express.static(__dirname));
-
 app.use(cookieParser());
 
 const corsOptions = {
@@ -37,15 +35,6 @@ app.use('/users', UsersRoutes);
 app.use('/expenses', ExpensesRoutes);
 app.use('/balance', BalanceRoutes);
 
-// app.get("/*", function(req, res) {
-//   const indexPath = path.resolve(__dirname, '../budgetingTool/public/index.html');
-//   res.sendFile(indexPath, (err) => {
-//     if (err) {
-//       console.error('Error sending file:', err);
-//     } else {
-//       console.log('File sent successfully.');
-//     }
-//   });});
 connectDatabase().then(() => {
   app.listen(2001, () => {
     console.log('Server started on port 2001');
